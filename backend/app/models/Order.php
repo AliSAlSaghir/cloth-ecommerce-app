@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,5 +19,17 @@ class Order extends Model {
   }
   public function coupon() {
     $this->belongsTo(Coupon::class);
+  }
+
+  public function getCreatedAtAttribute($value) {
+    return Carbon::parse($value)->diffForHumans();
+  }
+
+  public function getDeliveredAtAttribute($value) {
+    if ($value) {
+      return Carbon::parse($value)->diffForHumans();
+    } else {
+      return null;
+    }
   }
 }

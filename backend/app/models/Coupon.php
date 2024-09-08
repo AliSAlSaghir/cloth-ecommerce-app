@@ -17,7 +17,7 @@ class Coupon extends Model {
   }
 
   public function checkIfValid() {
-    if ($this->valid_until > Carbon::now()) return true;
+    if (Carbon::parse($this->valid_until) > Carbon::now()) return true;
     return false;
   }
 }
